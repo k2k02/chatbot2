@@ -11,6 +11,8 @@
 
         <input  type="button" value="send" id="sendbtn" onclick="setMsg(document.getElementById('usermsg').value);"><br>
 
+
+
         <!--        <p id="chatcontent"></p>-->
         <script type="text/javascript">
             var humanmsgcount = 0;
@@ -29,6 +31,8 @@
 //                        + "<br>";
                 sendMsgtoServer();
 
+                document.getElementById("usermsg").value = "";
+                document.getElementById("usermsg").focus();
 
             }
 
@@ -49,24 +53,16 @@
 
                         domelement.appendChild(document.createTextNode(response));
                         document.body.appendChild(domelement);
+
+
                     }
 
                 }
-//                var humanmsg = document.getElementById('chatcontent').innerHTML;
-                var humanmsg = document.getElementById(humanelementid).innerHTML;
-//                 var humanmsg=document.getElementById('usermsg').innerHTML;
-//                console.log("humanmsg:"+humanmsg);
-                var splitmsg = humanmsg.split(":", 2);
-                //               console.log("splitmsg:" + splitmsg[1]);
-
-
-                request.open("GET", "rest/chat/" + splitmsg[1], true);
-                //              request.open("GET", "rest/chat/"+humanmsg, true);
-
+                var humanmsg = document.getElementById("usermsg").value;
+                request.open("GET", "rest/chat/" + humanmsg, true);
                 request.send();
 
             }
-
 
         </script>
 

@@ -18,8 +18,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.alicebot.ab.Bot;
-import org.alicebot.ab.Chat;
+import org.alicebot.ab.*;
+
 
 @Path("/chat")
 public class ChatService {
@@ -27,8 +27,9 @@ public class ChatService {
 	@Path("/{param}")
 	public Response ProcessMsg(@PathParam("param") String msg) {
                 System.out.println("A");
-		String botname="k2bot";
-		String path="src\\java\\program ab";
+		String botname="super";
+		String path="C:\\programab";
+                
 		Bot bot=new Bot(botname,path);
 		Chat chat = new Chat(bot);
 		String response=chat.multisentenceRespond(msg);

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Insert title here</title>
+        <title>Chat With Me</title>
 
     </head>
     <body>
 
-        User Msg :<input type="text" name="usermsg" id="usermsg"> <input
-            type="button" value="send"
-            onclick="setMsg(document.getElementById('usermsg').value);"><br>
+        User Msg :<input type="text" name="usermsg" id="usermsg" onkeydown="Javascript: if (event.keyCode == 13)
+                    setMsg(document.getElementById('usermsg').value);" > 
+
+        <input  type="button" value="send" id="sendbtn" onclick="setMsg(document.getElementById('usermsg').value);"><br>
 
         <!--        <p id="chatcontent"></p>-->
         <script type="text/javascript">
@@ -21,11 +22,13 @@
                 console.log(msg);
                 var domelement = document.createElement("P");
                 domelement.setAttribute("id", humanelementid);
+                domelement.setAttribute("style", "color:blue");
                 domelement.appendChild(document.createTextNode("Human:" + msg));
                 document.body.appendChild(domelement);
 //                document.getElementById('chatcontent').innerHTML += "Human:" + msg
 //                        + "<br>";
                 sendMsgtoServer();
+
 
             }
 
@@ -43,6 +46,7 @@
                         console.log("B");
                         var response = request.responseText;
                         var domelement = document.createElement("P");
+
                         domelement.appendChild(document.createTextNode(response));
                         document.body.appendChild(domelement);
                     }
@@ -52,13 +56,17 @@
                 var humanmsg = document.getElementById(humanelementid).innerHTML;
 //                 var humanmsg=document.getElementById('usermsg').innerHTML;
 //                console.log("humanmsg:"+humanmsg);
-                var splitmsg = humanmsg.split(":", 1);
- //               console.log("splitmsg:" + splitmsg[1]);
+                var splitmsg = humanmsg.split(":", 2);
+                //               console.log("splitmsg:" + splitmsg[1]);
+
+
                 request.open("GET", "rest/chat/" + splitmsg[1], true);
-  //              request.open("GET", "rest/chat/"+humanmsg, true);
+                //              request.open("GET", "rest/chat/"+humanmsg, true);
+
                 request.send();
 
             }
+
 
         </script>
 

@@ -9,6 +9,7 @@ package com.jaxrs.aiml.server;
  *
  * @author WKKFERNANDO
  */
+import java.net.URL;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,21 +21,19 @@ import javax.ws.rs.core.Response;
 
 import org.alicebot.ab.*;
 
-
 @Path("/chat")
 public class ChatService {
-	@GET
-	@Path("/{param}")
-	public Response ProcessMsg(@PathParam("param") String msg) {
-                System.out.println("A");
-		String botname="super";
-		String path="C:\\programab";
-                
-		Bot bot=new Bot(botname,path);
-		Chat chat = new Chat(bot);
-		String response=chat.multisentenceRespond(msg);
-		return Response.status(200).entity("Bot~"+response).build();
-	}
+
+    @GET
+    @Path("/{param}")
+    public Response ProcessMsg(@PathParam("param") String msg) {
+        System.out.println("A");
+        String botname = "super";
+        URL url = ChatService.class.getResource("programab");
+        Bot bot = new Bot(botname, url.getPath());
+        Chat chat = new Chat(bot);
+        String response = chat.multisentenceRespond(msg);
+        return Response.status(200).entity("Bot~" + response).build();
+    }
 
 }
-
